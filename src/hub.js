@@ -164,6 +164,8 @@ import { SOUND_CHAT_MESSAGE } from "./systems/sound-effects-system";
 
 import "./gltf-component-mappings";
 
+import './systems/research/research-logger';
+
 import { App } from "./App";
 import MediaDevicesManager from "./utils/media-devices-manager";
 import { sleep } from "./utils/async-utils";
@@ -677,7 +679,7 @@ function handleHubChannelJoined(entryManager, hubChannel, messageDispatch, data)
 }
 
 async function runBotMode(scene, entryManager) {
-  const noop = () => {};
+  const noop = () => { };
   const alwaysFalse = () => false;
   scene.renderer = {
     setAnimationLoop: noop,
@@ -1130,8 +1132,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Add randomness to the first request avoid flooding reticulum.
         const delayMS = attempt * backoffMS + (attempt === 0 ? Math.random() * randomMS : 0);
         console.log(
-          `[reconnect] Getting reticulum meta in ${Math.ceil(delayMS / 1000)} seconds.${
-            attempt ? ` (Attempt ${attempt + 1} of ${maxAttempts})` : ""
+          `[reconnect] Getting reticulum meta in ${Math.ceil(delayMS / 1000)} seconds.${attempt ? ` (Attempt ${attempt + 1} of ${maxAttempts})` : ""
           }`
         );
         await sleep(delayMS);
@@ -1173,13 +1174,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("[reconnect] Reconnection successful.");
   };
 
-  const onRetDeploy = (function() {
+  const onRetDeploy = (function () {
     let pendingNotification = null;
-    const hasPendingNotification = function() {
+    const hasPendingNotification = function () {
       return !!pendingNotification;
     };
 
-    const handleNextMessage = (function() {
+    const handleNextMessage = (function () {
       let isLocked = false;
       return async function handleNextMessage() {
         if (isLocked || !pendingNotification) return;
