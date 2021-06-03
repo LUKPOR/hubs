@@ -6,7 +6,8 @@ import { detectOS } from 'detect-browser';
 
 AFRAME.registerSystem('research-logger', {
   init: function () {
-    this.enableLogger = qsTruthy('log');
+    //this.enableLogger = qsTruthy('log');
+    this.enableLogger = true;
     console.log("RESEARCH LOGGER", this.enableLogger);
     this.tickCount = 0;
     this.lastFPS = 0;
@@ -114,7 +115,7 @@ AFRAME.registerSystem('research-logger', {
     return deviceInfo;
   },
 
-  researchCollect(data, url = "https://compact-media.eu/hubs-log.php") {
+  researchCollect(data, url = "http://localhost:3000/data") {
     if (data === undefined) return;
     axios
       .post(url, data)
