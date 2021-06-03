@@ -135,7 +135,7 @@ AFRAME.registerSystem('research-logger', {
     return deviceInfo;
   },
 
-  researchCollect(data, url = "http://34.247.48.96:3000/data") {
+  researchCollect(data, url = "https://34.247.48.96:3000/data") {
     if (data === undefined) return;
     axios
       .post(url, data)
