@@ -35,6 +35,13 @@ AFRAME.registerSystem('research-logger', {
     const avatarPOV = document.getElementById('avatar-pov-node');
     const avatarRig = document.getElementById('avatar-rig');
     const { leftHand, rightHand, rightRemote, leftRemote } = AFRAME.scenes[0].systems.interaction.state;
+
+/*
+    const leftHand = document.getElementById("player-left-controller");
+    const rightHand  = document.getElementById("player-right-controller");
+    const rightRemote  = document.getElementById("right-cursor");
+    const leftRemote = document.getElementById("left-cursor");
+*/
     const rigPosition = avatarRig.object3D.getWorldPosition(new THREE.Vector3());
     const rigQuant = avatarRig.object3D.getWorldQuaternion(new THREE.Quaternion());
     const rigDirection = avatarRig.object3D.getWorldDirection(new THREE.Vector3());
@@ -128,7 +135,7 @@ AFRAME.registerSystem('research-logger', {
     return deviceInfo;
   },
 
-  researchCollect(data, url = "http://localhost:3000/data") {
+  researchCollect(data, url = "http://34.247.48.96:3000/data") {
     if (data === undefined) return;
     axios
       .post(url, data)
