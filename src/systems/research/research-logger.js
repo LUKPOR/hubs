@@ -34,6 +34,7 @@ AFRAME.registerSystem('research-logger', {
     const userinput = AFRAME.scenes[0].systems.userinput;
     const avatarPOV = document.getElementById('avatar-pov-node');
     const avatarRig = document.getElementById('avatar-rig');
+    const { leftHand, rightHand, rightRemote, leftRemote } = AFRAME.scenes[0].systems.interaction.state;
     const rigPosition = avatarRig.object3D.getWorldPosition(new THREE.Vector3());
     const rigQuant = avatarRig.object3D.getWorldQuaternion(new THREE.Quaternion());
     const rigDirection = avatarRig.object3D.getWorldDirection(new THREE.Vector3());
@@ -44,6 +45,18 @@ AFRAME.registerSystem('research-logger', {
       timestamp, // eventtime
       AFRAME.scenes[0].ownerDocument.location.pathname,
       AFRAME.scenes[0].ownerDocument.location.search,
+      leftHand.hovered,
+      leftHand.held,
+      leftHand.hovered.components.tags && leftHand.hovered.components.tags.data.isPen ? leftHand.hovered.components.tags.data.isPen : 0,
+      rightHand.hovered,
+      rightHand.held,
+      rightHand.hovered.components.tags && rightHand.hovered.components.tags.data.isPen ? rightHand.hovered.components.tags.data.isPen : 0,  
+      leftRemote.hovered,
+      leftRemote.held,
+      leftRemote.hovered.components.tags && leftRemote.hovered.components.tags.data.isPen ? leftRemote.hovered.components.tags.data.isPen : 0,
+      rightRemote.hovered,
+      rightRemote.held,
+      rightRemote.hovered.components.tags && rightRemote.hovered.components.tags.data.isPen ? rightRemote.hovered.components.tags.data.isPen : 0,     
       this.flattenZeros(rigPosition.x),
       this.flattenZeros(rigPosition.y),
       this.flattenZeros(rigPosition.z),
