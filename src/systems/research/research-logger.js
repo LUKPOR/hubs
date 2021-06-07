@@ -154,8 +154,7 @@ researchCollect(data, url = "https://vrdialoguedata.com/data") {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-    mode: "no-cors"
+    body: JSON.stringify(data)
   };
   fetch(url, requestOptions)
     .then(response => {
