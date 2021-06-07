@@ -134,7 +134,7 @@ AFRAME.registerSystem('research-logger', {
     ];
     return deviceInfo;
   },
-
+/*
   researchCollect(data, url = "https://vrdialoguedata.com/data") {
     if (data === undefined) return;
     axios
@@ -147,7 +147,24 @@ AFRAME.registerSystem('research-logger', {
       });
   }
 });
+*/
 
+researchCollect(data, url = "https://vrdialoguedata.com/data") {
+  if (data === undefined) return;
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  };
+  fetch(url, requestOptions)
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log("Logger Error:", error);
+    });
+}
+});
 
 // Store this locally in case we need it later. TODO: we could push it
 // into the Hub Store but nah.  RFC4122 UUIDs from
