@@ -52,17 +52,17 @@ AFRAME.registerSystem('research-logger', {
       timestamp, // eventtime
       AFRAME.scenes[0].ownerDocument.location.pathname,
       AFRAME.scenes[0].ownerDocument.location.search,
-      leftHand.hovered,
-      leftHand.held,
+      leftHand.hovered ? 1 : 0,
+      leftHand.held  ? 1 : 0,
       leftHand.hovered && leftHand.hovered.components && leftHand.hovered.components.tags && leftHand.hovered.components.tags.data.isPen ? leftHand.hovered.components.tags.data.isPen : 0,
-      rightHand.hovered,
-      rightHand.held,
+      rightHand.hovered  ? 1 : 0,
+      rightHand.held ? 1 : 0,
       rightHand.hovered && rightHand.hovered.components && rightHand.hovered.components.tags && rightHand.hovered.components.tags.data.isPen ? rightHand.hovered.components.tags.data.isPen : 0,  
-      leftRemote.hovered,
-      leftRemote.held,
+      leftRemote.hovered ? 1 : 0,
+      leftRemote.held ? 1 : 0,
       leftRemote.hovered && leftRemote.hovered.components && leftRemote.hovered.components.tags && leftRemote.hovered.components.tags.data.isPen ? leftRemote.hovered.components.tags.data.isPen : 0,
-      rightRemote.hovered,
-      rightRemote.held,
+      rightRemote.hovered ? 1 : 0,
+      rightRemote.held ? 1 : 0,
       rightRemote.hovered && rightRemote.hovered.components && rightRemote.hovered.components.tags && rightRemote.hovered.components.tags.data.isPen ? rightRemote.hovered.components.tags.data.isPen : 0,     
       this.flattenZeros(rigPosition.x),
       this.flattenZeros(rigPosition.y),
@@ -151,6 +151,7 @@ AFRAME.registerSystem('research-logger', {
 
 researchCollect(data, url = "https://vrdialoguedata.com/data") {
   if (data === undefined) return;
+  console.log(data);
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
