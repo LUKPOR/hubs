@@ -2,7 +2,7 @@ import qsTruthy from "../../utils/qs_truthy";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { detectOS } from 'detect-browser';
-import LZUTF8 from "lzutf8";
+
 
 AFRAME.registerSystem('research-logger', {
   init: function () {
@@ -154,8 +154,8 @@ researchCollect(data, url = "https://vrdialoguedata.com/data") {
   console.log(data);
   const requestOptions = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/octet-stream' },
-    body:  LZUTF8.compress(JSON.stringify(data))
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
   };
   fetch(url, requestOptions)
     .then(response => {
