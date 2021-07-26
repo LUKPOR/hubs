@@ -144,7 +144,7 @@ export function RoomSidebar({ room, accountId, onClose, canEdit, onEdit, onChang
 
   function onOpenAdminPanel() {
     localStorage.setItem("vrdialog-room-data", JSON.stringify(room))
-    newPageUrl = "https://vrdialoguedata.com:3000";
+    let newPageUrl = "https://vrdialoguedata.com:3000";
     // route to new page by changing window.location
     window.open(newPageUrl, "_blank"); //to open new page
   }
@@ -171,7 +171,7 @@ export function RoomSidebar({ room, accountId, onClose, canEdit, onEdit, onChang
           </InputField>
         )}
         <Button preset="primary" onClick={onOpenAdminPanel}>
-         "Open Admin Panel"
+         Open Admin Panel
         </Button>
         {room.scene && (
           <SceneInfo
