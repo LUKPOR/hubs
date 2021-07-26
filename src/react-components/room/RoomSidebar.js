@@ -89,6 +89,8 @@ export function SceneInfo({ accountId, scene, showAttributions, canChangeScene, 
     .filter(a => a.url || a.author)
     .map((attribution, i) => <SceneAttribution attribution={attribution} key={i} />);
 
+  
+
   return (
     <>
       <h2 className={styles.sectionTitle}>
@@ -139,6 +141,14 @@ export function SceneInfo({ accountId, scene, showAttributions, canChangeScene, 
 }
 
 export function RoomSidebar({ room, accountId, onClose, canEdit, onEdit, onChangeScene }) {
+
+  const onOpenAdminPanel = () => {
+    localStorage.setItem("vrdialog-room-data", JSON.stringify(room))
+    newPageUrl = "https://vrdialoguedata.com:3000";
+    // route to new page by changing window.location
+    window.open(newPageUrl, "_blank"); //to open new page
+  }
+
   return (
     <Sidebar
       title={<FormattedMessage id="room-sidebar.title" defaultMessage="Room" />}
@@ -160,6 +170,9 @@ export function RoomSidebar({ room, accountId, onClose, canEdit, onEdit, onChang
             {room.description}
           </InputField>
         )}
+        <Button preset="primary" onClick={onOpenAdminPanel}>
+         "Open Admin Panel"
+        </Button>
         {room.scene && (
           <SceneInfo
             accountId={accountId}
