@@ -142,7 +142,7 @@ export function SceneInfo({ accountId, scene, showAttributions, canChangeScene, 
 
 export function RoomSidebar({ room, accountId, onClose, canEdit, onEdit, onChangeScene }) {
 
-  const onOpenAdminPanel = () => {
+  function onOpenAdminPanel() {
     localStorage.setItem("vrdialog-room-data", JSON.stringify(room))
     newPageUrl = "https://vrdialoguedata.com:3000";
     // route to new page by changing window.location
