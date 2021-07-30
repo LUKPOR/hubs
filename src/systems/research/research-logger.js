@@ -23,8 +23,9 @@ AFRAME.registerSystem('research-logger', {
   tick() {
     this.tickCount_skip = this.tickCount_skip++;
 
-    const timestamp = this.ntpMoment.utc().valueOf();
+    
     if (this.tickCount_skip > 10) {
+    const timestamp = this.ntpMoment.utc().valueOf();
 
       if (!this.enableLogger) {
         return;
@@ -105,24 +106,25 @@ AFRAME.registerSystem('research-logger', {
         window.APP.store.state.preferences.audioOutputMode === "audio" ? 1 : 0
       ]);
       this.tickCount_skip = 0;
+      if (this.tickCount > this.tickPayloadSize) {
+        let infodata = [
+          getUUID(),
+          timestamp, // post time
+          window.APP.store.credentialsAccountId !== null ? window.APP.store.credentialsAccountId : "",
+          window.APP.store.state.profile.avatarId,
+          avatarRig.components["player-info"].identityName !== undefined ? avatarRig.components["player-info"].identityName : "",
+          avatarRig.components["player-info"].displayName !== null ? avatarRig.components["player-info"].displayName : "",
+          avatarRig.components["player-info"].isRecording,
+          avatarRig.components["player-info"].isOwner,
+        ];
+        infodata = infodata.concat(this.getDeviceInfo());
+        this.researchCollect({ info: infodata, data: this.payload });
+        this.payload = [];
+        this.tickCount = 0;
+      }
     }
+    ++this.tickCount;
 
-    if (++this.tickCount > this.tickPayloadSize) {
-      let infodata = [
-        getUUID(),
-        timestamp, // post time
-        window.APP.store.credentialsAccountId !== null ? window.APP.store.credentialsAccountId : "",
-        window.APP.store.state.profile.avatarId,
-        avatarRig.components["player-info"].identityName !== undefined ? avatarRig.components["player-info"].identityName : "",
-        avatarRig.components["player-info"].displayName !== null ? avatarRig.components["player-info"].displayName : "",
-        avatarRig.components["player-info"].isRecording,
-        avatarRig.components["player-info"].isOwner,
-      ];
-      infodata = infodata.concat(this.getDeviceInfo());
-      this.researchCollect({ info: infodata, data: this.payload });
-      this.payload = [];
-      this.tickCount = 0;
-    }
   },
 
   flattenZeros(n, p = 1000000000) {
