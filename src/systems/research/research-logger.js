@@ -11,6 +11,7 @@ AFRAME.registerSystem('research-logger', {
     this.enableLogger = true;
     console.log("RESEARCH LOGGER", this.enableLogger);
     this.tickCount = 0;
+    this.tickCount_skip = 0;
     this.lastFPS = 0;
     this.lastFpsUpdate = performance.now();
     this.frameCount = 0;
@@ -20,6 +21,9 @@ AFRAME.registerSystem('research-logger', {
   },
 
   tick() {
+    this.tickCount_skip = this.tickCount_skip ++;
+    if(this.tickCount_skip >10){
+    
     if (!this.enableLogger) {
       return;
     }
@@ -49,6 +53,9 @@ AFRAME.registerSystem('research-logger', {
     const povPosition = avatarPOV.object3D.getWorldPosition(new THREE.Vector3());
     const povQuant = avatarPOV.object3D.getWorldQuaternion(new THREE.Quaternion());
     const povDirection = avatarPOV.object3D.getWorldDirection(new THREE.Vector3());
+
+    
+
     this.payload.push([
       timestamp, // eventtime
       AFRAME.scenes[0].ownerDocument.location.pathname,
@@ -95,6 +102,9 @@ AFRAME.registerSystem('research-logger', {
       AFRAME.scenes[0].systems["local-audio-analyser"].volume,
       window.APP.store.state.preferences.audioOutputMode === "audio" ? 1 : 0
     ]);
+    this.tickCount_skip=0;
+  }
+
     if (++this.tickCount > this.tickPayloadSize) {
       let infodata = [
         getUUID(),
