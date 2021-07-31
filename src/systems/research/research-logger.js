@@ -21,7 +21,7 @@ AFRAME.registerSystem('research-logger', {
   },
 
   tick() {
-    this.tickCount_skip = this.tickCount_skip++;
+    ++this.tickCount_skip;
 
     
     if (this.tickCount_skip > 10) {
