@@ -43,7 +43,8 @@ AFRAME.registerSystem('research-logger', {
       const avatarPOV = document.getElementById('avatar-pov-node');
       const avatarRig = document.getElementById('avatar-rig');
       const { leftHand, rightHand, rightRemote, leftRemote } = AFRAME.scenes[0].systems.interaction.state;
-
+      const leftHand_element = document.getElementById("player-left-controller");
+      const rightHand_element  = document.getElementById("player-right-controller");
       /*
           const leftHand = document.getElementById("player-left-controller");
           const rightHand  = document.getElementById("player-right-controller");
@@ -57,6 +58,10 @@ AFRAME.registerSystem('research-logger', {
       const povQuant = avatarPOV.object3D.getWorldQuaternion(new THREE.Quaternion());
       const povDirection = avatarPOV.object3D.getWorldDirection(new THREE.Vector3());
 
+      const rightHandPosition = rightHand_element.object3D.getWorldPosition(new THREE.Vector3());
+      const leftHandPosition = leftHand_element.object3D.getWorldPosition(new THREE.Vector3());
+      const rightHandDirection = rightHand_element.object3D.getWorldDirection(new THREE.Vector3());
+      const leftHandDirection = leftHand_element.object3D.getWorldDirection(new THREE.Vector3());
 
 
       this.payload.push([
@@ -95,6 +100,18 @@ AFRAME.registerSystem('research-logger', {
         this.flattenZeros(povDirection.x),
         this.flattenZeros(povDirection.y),
         this.flattenZeros(povDirection.z),
+        this.flattenZeros(rightHandPosition.x),
+        this.flattenZeros(rightHandPosition.y),
+        this.flattenZeros(rightHandPosition.z),
+        this.flattenZeros(leftHandPosition.x),
+        this.flattenZeros(leftHandPosition.y),
+        this.flattenZeros(leftHandPosition.z),
+        this.flattenZeros(rightHandDirection.x),
+        this.flattenZeros(rightHandDirection.y),
+        this.flattenZeros(rightHandDirection.z),
+        this.flattenZeros(leftHandDirection.x),
+        this.flattenZeros(leftHandDirection.y),
+        this.flattenZeros(leftHandDirection.z),
         AFRAME.scenes[0].systems["hubs-systems"].characterController.fly ? 1 : 0,
         AFRAME.scenes[0].states.includes("spacebubble") ? 1 : 0,
         AFRAME.scenes[0].states.includes("visible") ? 1 : 0,
